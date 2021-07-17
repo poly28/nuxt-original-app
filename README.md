@@ -16,6 +16,16 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+### ログイン機能作成参考資料
+(【Nuxt.js】firebase基礎編(Auth版)：メールアドレスログインをできるようにしよう)
+[https://qiita.com/aLiz/items/0466e1dfdadcddf384b9]
+
+(Nuxt.js】firebase導入編(Firestore版)：データの追加 取得をしよう)
+[https://note.com/aliz/n/nacc97fe7d019#Ls0Km]
+
+
+(Firebase を JavaScript プロジェクトに追加する)
+[https://firebase.google.com/docs/web/setup]
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
