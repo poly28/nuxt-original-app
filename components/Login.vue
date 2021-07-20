@@ -8,13 +8,13 @@
         <span class="label">
           email
         </span>
-        <input class="input" type="text" v-model="email" />
+        <input class="input" type="text" v-model="email" /><br />
       </label>
       <label class="label">
         <span class="label">
           password
         </span>
-        <input class="input" type="password" v-model="password" />
+        <input class="input" type="password" v-model="password" /><br />
       </label>
       <button class="button" type="submit" @click="login">
         Login
