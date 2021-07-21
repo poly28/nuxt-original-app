@@ -6,7 +6,7 @@ export default {
   head: {
     title: "nuxt-test",
     htmlAttrs: {
-      lang: "en"
+      lang: "ja"
     },
     meta: [
       { charset: "utf-8" },
@@ -21,7 +21,13 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: "~/plugins/v-calendar.js", mode: "client", ssr: false }],
+  plugins: [
+    { src: "~/plugins/v-calendar.js", mode: "client", ssr: false },
+    {
+      src: "~/plugins/vue2-timepicker.js",
+      mode: "client"
+    }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
