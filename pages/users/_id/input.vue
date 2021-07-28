@@ -3,7 +3,9 @@
     <!-- 開始日及び出張先の入力フォームここから -->
     <h3>【実績入力(/users/id/input)】</h3>
     <label for="">開始日</label>
-    <input type="text" v-model="date" />
+    <!-- <input type="text" v-model="date" /> -->
+    <v-date-picker :popover="click" v-model="date"> </v-date-picker>
+
     <label for="">出張先 </label>
     <input type="text" />
     <!-- 開始日及び出張先の入力フォームここまで -->
