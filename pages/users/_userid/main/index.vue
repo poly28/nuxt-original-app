@@ -19,6 +19,7 @@
 export default {
   data() {
     return {
+      userid: this.$route.params.userid,
       attrs: [
         {
           key: "today",
@@ -54,10 +55,6 @@ export default {
     //     };
     //   }
     // }
-  },
-  async asyncData({ $content, params }) {
-    const userid = params.userid;
-    return userid;
   }
 };
 </script>
