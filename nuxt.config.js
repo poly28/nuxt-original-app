@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "nuxt-test",
+    title: "nuxt-original-app",
     htmlAttrs: {
       lang: "ja"
     },
@@ -25,7 +25,13 @@ export default {
     { src: "~/plugins/v-calendar.js", mode: "client", ssr: false },
     {
       src: "~/plugins/vue2-timepicker.js",
-      mode: "client"
+      mode: "client",
+      ssr: false
+    },
+    {
+      src: "~/plugins/vuejs-datepicker.js",
+      mode: "client",
+      ssr: false
     }
   ],
 
@@ -34,7 +40,11 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   // "@nuxtjs/vuetify"
-  buildModules: [],
+  // buildModules: ["@nuxtjs/moment"],
+
+  // moment: {
+  //   locales: ["ja"]
+  // },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxtjs/axios"],
