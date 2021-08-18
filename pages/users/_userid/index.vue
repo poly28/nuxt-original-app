@@ -26,8 +26,10 @@
         :language="ja"
         :value="this.default"
         :format="DatePickerFormat"
+        :highlighted="highlighted"
         v-model="datepicker"
       ></datepicker>
+      <!-- day-cell-content="holiday" -->
       <!-- @selected="toInput" -->
       <!-- main calendar-datepicker -->
 
@@ -54,6 +56,8 @@ import Datepicker from "vuejs-datepicker";
 import { ja } from "vuejs-datepicker/dist/locale";
 
 export default {
+  // ミドルウェアプロパティでログイン状態アクセス制御
+  // middleware: "authenticated",
   components: {
     Datepicker
   },
@@ -62,7 +66,11 @@ export default {
       // datepicker用
       datepicker: "",
       default: new Date(),
-      DatePickerFormat: "yyyy-MM-dd",
+      DatePickerFormat: "yyyy/MM/dd",
+      // 土日を強調する
+      highlighted: {
+        days: [0, 6]
+      },
       // datepicker用
 
       userid: this.$route.params.userid
@@ -95,7 +103,8 @@ export default {
     },
     toReport: function(userid) {
       this.$router.push(`/users/${userid}/report`);
-    }
+    },
+    holiday: function() {}
     // customFormatter: function(data) {
     //   return moment(date).format("yyyyMMdd");
     // },

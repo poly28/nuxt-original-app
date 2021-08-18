@@ -1,18 +1,19 @@
 <template>
   <div>
-    <!-- 開始日及び出張先の入力フォームここから -->
+    <!-- 開始日&出張先の入力フォーム -->
     <h3>【実績入力(/users/id/input)】</h3>
     <label for="">開始日</label>
-    <!-- <input type="text" v-model="date" /> -->
-    <v-date-picker :popover="click" v-model="date"> </v-date-picker>
+    <v-date-picker popover="click" v-model="date"> </v-date-picker>
 
     <label for="">出張先 </label>
     <input type="text" />
-    <!-- 開始日及び出張先の入力フォームここまで -->
+    <!-- 開始日&出張先の入力フォーム -->
+
     <hr />
-    <!-- 時間及び作業内容の入力フォームここから -->
+    <!-- 時間&作業内容の入力フォーム -->
     <p>【実績追加】</p>
     <form action="">
+      <!-- 開始時間 -->
       <label for="">開始</label>
       <vue-timepicker
         v-model="startTime"
@@ -25,6 +26,9 @@
         close-on-complete
       >
       </vue-timepicker>
+      <!-- 開始時間 -->
+
+      <!-- 終了時間 -->
       <label for="">終了</label>
       <vue-timepicker
         v-model="endTime"
@@ -37,24 +41,27 @@
         close-on-complete
       >
       </vue-timepicker>
+      <!-- 終了時間 -->
 
+      <!-- 作業内容 -->
       <label for="">作業内容</label>
-      <select name="" id="" v-model="select">
-        <option value=""></option>
+      <select v-model="currentSelect">
         <option value="移動">移動</option>
         <option value="作業">作業</option>
       </select>
+      <!-- 作業内容 -->
       <button @click.prevent="add">追加</button>
     </form>
-    <!-- 時間及び作業内容の入力フォームここまで -->
+    <!-- 時間&作業内容の入力フォーム -->
     <hr />
 
     <!-- デバッグ用 -->
     <!-- <pre>{{ $data }}</pre> -->
     <!-- デバッグ用 -->
 
-    <!-- 実績の一覧表示ここから -->
+    <!-- 実績一覧表示 -->
     <p>【実績一覧】</p>
+    <!-- 実績リスト -->
     <ol>
       <li v-for="(list, index) in lists" :key="list.id">
         <p>
@@ -63,34 +70,39 @@
         </p>
       </li>
     </ol>
+    <!-- 実績リスト -->
     <!-- todo：記入した実績をfirestoreに保存する処理を追加 -->
     <button @click.prevent="register">登録</button>
-    <!-- 実績の一覧表示ここまで -->
+    <!-- 実績一覧表示 -->
   </div>
 </template>
 
 <script>
+// VueTimepicker(作業実績の時間記録用)
 import VueTimepicker from "vue2-timepicker";
 import "vue2-timepicker/dist/VueTimepicker.css";
 
 export default {
   mounted() {
     // ここで日付を自動で読み込ませる
-    this.date = "読み込み時に自動で取得";
-
+    // this.date = "読み込み時に自動で取得";
     // todo
     // ここで出張先を自動で読み込ませる
   },
   data() {
     return {
+      // v-date-picker用
       date: "",
-      select: "",
+      currentselect: "",
+      // v-date-picker用
 
       // 開始時間の初期値を設定する
       startTime: "09:00",
 
       // 終了時間の初期値を設定する
       endTime: "09:00",
+
+      //
       tripData: []
     };
   },
@@ -108,23 +120,28 @@ export default {
         work: this.select
       };
 
-      // 入力欄初期化
+      // 開始時間のスタートを前作業の終了時刻に変更する
+      // 終了時刻は自分で入力するため、終了時刻を空にする
       this.startTime = this.endTime;
       this.endTime = "";
 
-      // 入力した実績を配列addTripに保存
+      // 入力した実績を配列addTripに保存する
       this.tripData.push(addTrip);
     },
+
+    // 実績登録処理
     register() {
       if (alert("実績を登録しますか？")) {
         console.log("実績を登録します");
       }
     },
+    // 実績内容を登録した配列をspliceで削除する処理
     del(index) {
       this.tripData.splice(index, 1);
     }
   },
   computed: {
+    // 整形したデータをリターンする
     lists() {
       return this.tripData;
     }

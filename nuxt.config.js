@@ -18,7 +18,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ["@/assets/css/sanitize.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -37,7 +37,9 @@ export default {
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
-
+  router: {
+    middleware: "redirect"
+  },
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   // "@nuxtjs/vuetify"
   // buildModules: ["@nuxtjs/moment"],
