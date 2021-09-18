@@ -5,13 +5,18 @@
 
       <main>
         <!-- メインカレンダー -->
+        <!-- カレンダーの日付をクリックして実績入力画面へ移行する -->
+        <!-- 選択した日付を実績入力画面で引き継ぐ -->
+        <!-- @changeでtoInputを実行 -->
         <section class="calender">
           <v-date-picker
             v-model="picker"
             :landscape="landscape"
             :reactive="reactive"
+            elevation="2"
             locale="jp-ja"
             :day-format="date => new Date(date).getDate()"
+            @change="toInput(userid)"
           ></v-date-picker>
         </section>
         <!-- メインカレンダー -->
@@ -40,16 +45,17 @@ export default {
   // middleware: "authenticated",
   data() {
     return {
-      userid: this.$route.params.userid
+      userid: this.$route.params.userid,
+      // v-date-picker
+      picker: ""
+      // v-date-picker
     };
   },
-  computed: {},
   methods: {
     toInput: function(userid) {
       this.$router.push(`/users/${this.userid}/input`);
       // todo:カレンダーの選択した日付を遷移先にデータ渡しする処理を記述する
-      //
-      //
+      // firestoreに日付データを送る処理を記述する
     },
     toReport: function(userid) {
       this.$router.push(`/users/${userid}/report`);
