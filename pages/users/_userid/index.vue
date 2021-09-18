@@ -5,9 +5,9 @@
 
       <main>
         <!-- メインカレンダー -->
-        <section class="calender">
-          <!-- <v-sheet height="600"> -->
-          <v-calendar
+        <!-- <section class="calender"> -->
+        <!-- <v-sheet height="600"> -->
+        <!-- <v-calendar
             :attributes="attrs"
             style="width:300px;"
             :day-format="timestamp => new Date(timestamp.date).getDate()"
@@ -25,9 +25,9 @@
                 </div>
               </div>
             </template>
-          </v-calendar>
-          <!-- </v-sheet> -->
-        </section>
+          </v-calendar> -->
+        <!-- </v-sheet> -->
+        <!-- </section> -->
         <!-- メインカレンダー -->
 
         <v-date-picker
@@ -37,6 +37,7 @@
           locale="jp-ja"
           :day-format="date => new Date(date).getDate()"
         ></v-date-picker>
+
         <!-- main calendar-datepicker -->
         <!-- <datepicker
           :inline="true"
