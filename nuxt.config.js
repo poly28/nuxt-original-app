@@ -22,7 +22,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: "~/plugins/v-calendar.js", mode: "client", ssr: false },
+    // { src: "~/plugins/v-calendar.js", mode: "client", ssr: false },
     {
       src: "~/plugins/vue2-timepicker.js",
       mode: "client",
@@ -49,7 +49,7 @@ export default {
   // },
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/vuetify"],
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
