@@ -38,9 +38,6 @@
 export default {
   // ミドルウェアプロパティでログイン状態アクセス制御
   // middleware: "authenticated",
-  components: {
-    Datepicker
-  },
   data() {
     return {
       userid: this.$route.params.userid
