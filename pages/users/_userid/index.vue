@@ -11,13 +11,12 @@
         <section class="calender">
           <v-date-picker
             v-model="picker"
-            :landscape="landscape"
-            :reactive="reactive"
             elevation="2"
             locale="jp-ja"
             :day-format="date => new Date(date).getDate()"
             @change="toInput(userid)"
           ></v-date-picker>
+          <!-- :reactive="reactive" -->
         </section>
         <!-- メインカレンダー -->
 
@@ -53,12 +52,13 @@ export default {
   },
   methods: {
     toInput: function(userid) {
-      this.$router.push(`/users/${this.userid}/input`);
       // todo:カレンダーの選択した日付を遷移先にデータ渡しする処理を記述する
       // firestoreに日付データを送る処理を記述する
+      this.$store.dispatch("addPicker", this.picker);
+      // this.$router.push(`/user/${this.userid}/input`);
     },
     toReport: function(userid) {
-      this.$router.push(`/users/${userid}/report`);
+      this.$router.push(`/user/${userid}/report`);
     }
   }
 };

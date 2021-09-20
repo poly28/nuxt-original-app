@@ -1,10 +1,23 @@
 import firebase from "~/plugins/firebase";
+import { firebaseMutations, firestoreAction } from "vuexfire";
+
+const db = firebase.firestore();
+const usersRef = db.collection("users");
 
 export const state = () => ({
+  // ******************
+  // ログイン処理
+  // ******************
   user: {
     uid: "",
     email: "",
-    login: false
+    login: false,
+
+    // ******************
+    // ユーザメインページ
+    // (date-picker)
+    // ******************
+    picker: ""
   }
 });
 
@@ -15,6 +28,9 @@ export const getters = {
 };
 
 export const actions = {
+  // ******************
+  // ログイン処理
+  // ******************
   login({ dispatch }, payload) {
     firebase
       .auth()
@@ -34,10 +50,24 @@ export const actions = {
         commit("switchLogin");
       }
     });
-  }
+  },
+
+  // ******************
+  // ユーザメインページ
+  // ******************
+  // 選択した日付をfirestoreに登録
+  addPicker: firestoreAction((context, picker) => {
+    usersRef.add({
+      picker: picker
+    });
+  })
 };
 
 export const mutations = {
+  // ******************
+  // ログイン処理
+  // ******************
+  ...firebaseMutations,
   getData(state, payload) {
     state.user.uid = payload.uid;
     state.user.email = payload.email;
@@ -45,4 +75,11 @@ export const mutations = {
   switchLogin(state) {
     state.user.login = true;
   }
+
+  // ******************
+  // ユーザメインページ
+  // ******************
+  //   setDatepicker(state) {
+  //     state.user.picker;
+  //   }
 };
