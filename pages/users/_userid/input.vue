@@ -2,84 +2,126 @@
   <div>
     <v-app>
       <!-- 開始日&出張先の入力フォーム -->
-      <h3>【実績入力(/users/id/input)】</h3>
-      <label for="">開始日</label>
+      <v-container>
+        <v-row justify="center" align="center">
+          <v-col cols="12" sm="8" md="6">
+            <v-menu max-width="290px" min-width="290px">
+              <!-- ポップアップを追加する要素にv-on="on" -->
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  slot="activator"
+                  v-model="fromDate"
+                  label="出張日"
+                  readonly
+                  v-on="on"
+                />
+              </template>
+              <!-- ポップアップされる内容-->
+              <v-date-picker
+                v-model="fromDate"
+                elevation="2"
+                locale="jp-ja"
+                :day-format="date => new Date(date).getDate()"
+              ></v-date-picker>
+            </v-menu>
+            <v-text-field
+              label="出張先"
+              placeholder="船名を入力してください"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <!-- 開始日&出張先の入力フォーム -->
 
-      <!-- <v-date-picker popover="click" v-model="date"> </v-date-picker> -->
-      <datepicker v-model="picker"></datepicker>
+        <!-- 時間&作業内容の入力フォーム -->
+        <v-form>
+          <v-row justify="center" align-content="center">
+            <v-col cols="6" sm="6" md="6">
+              <!-- 開始時間 -->
+              <vue-timepicker
+                v-model="startTime"
+                hour-label="時"
+                minute-label="分"
+                minute-interval="15"
+                placeholder="開始"
+                advanced-keyboard
+                manual-input
+                close-on-complete
+              >
+              </vue-timepicker>
+              <!-- 開始時間 -->
 
-      <label for="">出張先 </label>
-      <input type="text" />
-      <!-- 開始日&出張先の入力フォーム -->
+              <!-- 終了時間 -->
+              <vue-timepicker
+                v-model="endTime"
+                hour-label="時"
+                minute-label="分"
+                minute-interval="15"
+                placeholder="終了"
+                advanced-keyboard
+                manual-input
+                close-on-complete
+              >
+              </vue-timepicker>
+              <!-- 終了時間 -->
 
-      <hr />
-      <!-- 時間&作業内容の入力フォーム -->
-      <p>【実績追加】</p>
-      <form action="">
-        <!-- 開始時間 -->
-        <label for="">開始</label>
-        <vue-timepicker
-          v-model="startTime"
-          hour-label="時"
-          minute-label="分"
-          minute-interval="15"
-          placeholder="開始"
-          advanced-keyboard
-          manual-input
-          close-on-complete
-        >
-        </vue-timepicker>
-        <!-- 開始時間 -->
+              <!-- 作業内容 -->
+              <v-select
+                class="py-2"
+                :items="workList"
+                label="種別"
+                v-model="currentSelect"
+                outlined
+              ></v-select>
+              <!-- 作業内容 -->
+              <v-btn @click.prevent="add">追加</v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+        <!-- 時間&作業内容の入力フォーム -->
 
-        <!-- 終了時間 -->
-        <label for="">終了</label>
-        <vue-timepicker
-          v-model="endTime"
-          hour-label="時"
-          minute-label="分"
-          minute-interval="15"
-          placeholder="終了"
-          advanced-keyboard
-          manual-input
-          close-on-complete
-        >
-        </vue-timepicker>
-        <!-- 終了時間 -->
+        <!-- デバッグ用 -->
+        <!-- <pre>{{ $data }}</pre> -->
+        <!-- デバッグ用 -->
 
-        <!-- 作業内容 -->
-        <label for="">作業内容</label>
-        <select v-model="currentSelect">
-          <option value="移動">移動</option>
-          <option value="作業">作業</option>
-        </select>
-        <!-- 作業内容 -->
+        <!-- 実績一覧表示 -->
+        <v-row justify="center" align-content="center">
+          <v-col cols="6" sm="6" md="6">
+            <!-- <ol>
+              <li v-for="(list, index) in lists" :key="list.id">
+                <p>
+                  【時間】{{ list.start }}～{{ list.end }} 【作業内容】{{
+                    list.work
+                  }}
+                  <v-btn @click.prevent="del(index)">削除</v-btn>
+                </p>
+                <v-text-field></v-text-field>
+              </li>
+            </ol> -->
 
-        <v-btn @click.prevent="add">追加</v-btn>
-      </form>
-      <!-- 時間&作業内容の入力フォーム -->
-      <hr />
+            <ul class="work-list">
+              <li v-for="(list, index) in lists" :key="list.id">
+                <v-icon>mdi-clock-outline</v-icon>
+                <span>{{ list.start }}～{{ list.end }}</span>
+                <!-- <v-icon>mdi-wrench</v-icon> -->
+                <!-- <v-icon>mdi-car-estate</v-icon> -->
+                <span>({{ list.work }}) </span>
+                <v-icon @click.prevent="del(index)">mdi-close-box</v-icon>
+                <!-- <v-btn @click.prevent="del(index)">削除</v-btn> -->
+              </li>
+            </ul>
+          </v-col>
+        </v-row>
+        <!-- 実績一覧表示 -->
 
-      <!-- デバッグ用 -->
-      <pre>{{ $data }}</pre>
-      <!-- デバッグ用 -->
-
-      <!-- 実績一覧表示 -->
-      <p>【実績一覧】</p>
-
-      <!-- 実績リスト -->
-      <ol>
-        <li v-for="(list, index) in lists" :key="list.id">
-          <p>
-            【時間】{{ list.start }}～{{ list.end }} 【作業内容】{{ list.work }}
-            <v-btn @click.prevent="del(index)">削除</v-btn>
-          </p>
-        </li>
-      </ol>
-      <!-- 実績リスト -->
-
-      <!-- todo：記入した実績をfirestoreに保存する処理を追加 -->
-      <v-btn @click.prevent="register">登録</v-btn>
-      <!-- 実績一覧表示 -->
+        <!-- 実績登録 -->
+        <v-row justify="center" align-content="center">
+          <v-col cols="6" sm="6" md="6">
+            <!-- todo：記入した実績をfirestoreに保存する処理を追加 -->
+            <v-btn @click.prevent="register">登録</v-btn>
+          </v-col>
+        </v-row>
+        <!-- 実績登録 -->
+      </v-container>
     </v-app>
   </div>
 </template>
@@ -90,9 +132,9 @@ import VueTimepicker from "vue2-timepicker";
 // import "vue2-timepicker/dist/VueTimepicker.css";
 
 // datapickerのインポート
-import Datepicker from "vuejs-datepicker";
+// import Datepicker from "vuejs-datepicker";
 // datepicker日本語対応
-import { ja } from "vuejs-datepicker/dist/locale";
+// import { ja } from "vuejs-datepicker/dist/locale";
 
 export default {
   mounted() {
@@ -103,16 +145,12 @@ export default {
   },
   data() {
     return {
-      // datepicker用
-      date: "",
-      picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
-      // datepicker用
+      // v-date-picker
+      fromDate: "",
 
-      // 作業内容select
+      // v-select(作業内容)
+      workList: ["移動", "作業"],
       currentSelect: "",
-      // 作業内容select
 
       // 開始時間の初期値を設定する
       startTime: "09:00",
@@ -120,9 +158,8 @@ export default {
       // 終了時間の初期値を設定する
       endTime: "09:00",
 
-      // 出張実績格納
+      // 出張実績格納配列
       tripData: []
-      // 出張実績格納
     };
   },
   components: {
@@ -130,19 +167,15 @@ export default {
   },
   methods: {
     add() {
-      let addTrip = {};
-
       // 実績追加用のオブジェクトを作成
-      addTrip = {
+      let addTrip = {
         start: this.startTime,
         end: this.endTime,
         work: this.currentSelect
       };
 
       // 開始時間のスタートを前作業の終了時刻に変更する
-      // 終了時刻は自分で入力するため、終了時刻を空にする
       this.startTime = this.endTime;
-      this.endTime = "";
 
       // 入力した実績を配列addTripに保存する
       this.tripData.push(addTrip);
@@ -168,3 +201,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.work-list {
+  list-style: none;
+}
+</style>

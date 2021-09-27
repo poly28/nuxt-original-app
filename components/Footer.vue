@@ -1,9 +1,10 @@
 <template>
-  <p>Copyright©️ 2021, Poly Design All rights reserved</p>
+  <v-app>
+    <v-footer :absolute="!fixed" app>
+      <span
+        >Copyright &copy; {{ new Date().getFullYear() }} , Poly Design All
+        rights reserved</span
+      >
+    </v-footer>
+  </v-app>
 </template>
-
-<style lang="scss" scoped>
-p {
-  background-color: rgb(0, 158, 231);
-}
-</style>

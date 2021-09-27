@@ -56,6 +56,7 @@ export const actions = {
   // ユーザメインページ
   // ******************
   // 選択した日付をfirestoreに登録
+  // todo:追加になっているので値の上書き処理にする
   addPicker: firestoreAction((context, picker) => {
     usersRef.add({
       picker: picker
@@ -67,7 +68,7 @@ export const mutations = {
   // ******************
   // ログイン処理
   // ******************
-  ...firebaseMutations,
+  // ...firebaseMutations,
   getData(state, payload) {
     state.user.uid = payload.uid;
     state.user.email = payload.email;
