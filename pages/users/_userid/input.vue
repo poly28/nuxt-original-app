@@ -84,34 +84,58 @@
         <!-- デバッグ用 -->
 
         <!-- 実績一覧表示 -->
-        <v-row justify="center" align-content="center">
+        <!-- <v-row justify="center" align-content="center">
           <v-col cols="6" sm="6" md="6">
-            <!-- <ol>
-              <li v-for="(list, index) in lists" :key="list.id">
-                <p>
-                  【時間】{{ list.start }}～{{ list.end }} 【作業内容】{{
-                    list.work
-                  }}
-                  <v-btn @click.prevent="del(index)">削除</v-btn>
-                </p>
-                <v-text-field></v-text-field>
-              </li>
-            </ol> -->
-
             <ul class="work-list">
               <li v-for="(list, index) in lists" :key="list.id">
                 <v-icon>mdi-clock-outline</v-icon>
-                <span>{{ list.start }}～{{ list.end }}</span>
-                <!-- <v-icon>mdi-wrench</v-icon> -->
-                <!-- <v-icon>mdi-car-estate</v-icon> -->
-                <span>({{ list.work }}) </span>
+                <span>{{ list.start }}～{{ list.end }}</span> -->
+        <!-- <v-icon>mdi-wrench</v-icon> -->
+        <!-- <v-icon>mdi-car-estate</v-icon> -->
+        <!-- <span>({{ list.work }}) </span>
                 <v-icon @click.prevent="del(index)">mdi-close-box</v-icon>
-                <!-- <v-btn @click.prevent="del(index)">削除</v-btn> -->
-              </li>
+                <v-text-field></v-text-field> -->
+        <!-- <v-btn @click.prevent="del(index)">削除</v-btn> -->
+        <!-- </li>
             </ul>
           </v-col>
-        </v-row>
+        </v-row> -->
         <!-- 実績一覧表示 -->
+
+        <v-row justify="center" align-content="center">
+          <v-col cols="6" sm="6" md="6">
+            <!-- おためし -->
+            <v-list two-line elevation="2" nav>
+              <v-subheader>作業の流れ</v-subheader>
+              <draggable>
+                <v-list-item
+                  v-for="(list, index) in lists"
+                  :key="list.id"
+                  link
+                  selectable
+                >
+                  <!-- <v-list-item-avatar left>
+                  <v-icon :color="item.iconColor">{{ list.icon }}</v-icon>
+                </v-list-item-avatar> -->
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      <v-icon>mdi-clock-outline</v-icon>
+                      {{ list.start }}～{{ list.end }}({{ list.work }})
+                      <v-icon @click.prevent="del(index)">mdi-close-box</v-icon>
+                    </v-list-item-title>
+                    <v-list-item-subtitle
+                      ><v-text-field></v-text-field
+                    ></v-list-item-subtitle>
+                  </v-list-item-content>
+                  <!-- <v-list-item-action>
+                  <v-icon @click.prevent="del(index)">mdi-close-box</v-icon>
+                </v-list-item-action> -->
+                </v-list-item>
+              </draggable>
+            </v-list>
+            <!-- おためし -->
+          </v-col>
+        </v-row>
 
         <!-- 実績登録 -->
         <v-row justify="center" align-content="center">
@@ -131,10 +155,7 @@
 import VueTimepicker from "vue2-timepicker";
 // import "vue2-timepicker/dist/VueTimepicker.css";
 
-// datapickerのインポート
-// import Datepicker from "vuejs-datepicker";
-// datepicker日本語対応
-// import { ja } from "vuejs-datepicker/dist/locale";
+import draggable from "vuedraggable";
 
 export default {
   mounted() {
@@ -163,7 +184,8 @@ export default {
     };
   },
   components: {
-    "vue-timepicker": VueTimepicker
+    "vue-timepicker": VueTimepicker,
+    draggable
   },
   methods: {
     add() {
