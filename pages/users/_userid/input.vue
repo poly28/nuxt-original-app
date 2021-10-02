@@ -31,11 +31,32 @@
           </v-col>
         </v-row>
         <!-- 開始日&出張先の入力フォーム -->
-
+        <v-row justify="center" align="center">
+          <v-col cols="12" sm="8" md="6">
+            <v-menu max-width="290px" min-width="290px">
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="selectTime"
+                  slot="activator"
+                  label="開始"
+                  readonly
+                  v-on="on"
+                />
+              </template>
+              <v-time-picker
+                v-model="selectTime"
+                format="24hr"
+                :allowed-minutes="allowMinutes"
+                elevation="2"
+                scrollable
+              ></v-time-picker>
+            </v-menu>
+          </v-col>
+        </v-row>
         <!-- 時間&作業内容の入力フォーム -->
         <v-form>
           <v-row justify="center" align-content="center">
-            <v-col cols="6" sm="6" md="6">
+            <v-col cols="12" sm="8" md="6">
               <!-- 開始時間 -->
               <vue-timepicker
                 v-model="startTime"
@@ -103,7 +124,7 @@
         <!-- 実績一覧表示 -->
 
         <v-row justify="center" align-content="center">
-          <v-col cols="6" sm="6" md="6">
+          <v-col cols="12" sm="8" md="6">
             <!-- おためし -->
             <v-list two-line elevation="2" nav>
               <v-subheader>作業の流れ</v-subheader>
@@ -127,9 +148,6 @@
                       ><v-text-field></v-text-field
                     ></v-list-item-subtitle>
                   </v-list-item-content>
-                  <!-- <v-list-item-action>
-                  <v-icon @click.prevent="del(index)">mdi-close-box</v-icon>
-                </v-list-item-action> -->
                 </v-list-item>
               </draggable>
             </v-list>
@@ -139,7 +157,7 @@
 
         <!-- 実績登録 -->
         <v-row justify="center" align-content="center">
-          <v-col cols="6" sm="6" md="6">
+          <v-col cols="12" sm="8" md="6">
             <!-- todo：記入した実績をfirestoreに保存する処理を追加 -->
             <v-btn @click.prevent="register">登録</v-btn>
           </v-col>
@@ -168,6 +186,10 @@ export default {
     return {
       // v-date-picker
       fromDate: "",
+
+      // v-time-picker
+      selectTime: "",
+      allowMinutes: [0, 15, 30, 45],
 
       // v-select(作業内容)
       workList: ["移動", "作業"],
@@ -213,6 +235,9 @@ export default {
     // 実績内容を登録した配列をspliceで削除する処理
     del(index) {
       this.tripData.splice(index, 1);
+    },
+    allowMinutes() {
+      return this.allowMinutes;
     }
   },
   computed: {
