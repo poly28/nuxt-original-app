@@ -46,7 +46,7 @@
               <v-time-picker
                 v-model="selectTime"
                 format="24hr"
-                :allowed-minutes="allowMinutes"
+                :allowed-minutes="allowMinutes()"
                 elevation="2"
                 scrollable
               ></v-time-picker>
@@ -189,7 +189,7 @@ export default {
 
       // v-time-picker
       selectTime: "",
-      allowMinutes: [0, 15, 30, 45],
+      setMinutes: [0, 15, 30, 45],
 
       // v-select(作業内容)
       workList: ["移動", "作業"],
@@ -237,7 +237,7 @@ export default {
       this.tripData.splice(index, 1);
     },
     allowMinutes() {
-      return this.allowMinutes;
+      return this.setMinutes;
     }
   },
   computed: {

@@ -54,7 +54,7 @@ export default {
     toInput: function(userid) {
       // todo:カレンダーの選択した日付を遷移先にデータ渡しする処理を記述する
       // firestoreに日付データを送る処理を記述する
-      // this.$store.dispatch("addPicker", this.picker);
+      this.$store.dispatch("addPicker", this.picker);
       this.$router.push(`/users/${this.userid}/input`);
     },
     toReport: function(userid) {

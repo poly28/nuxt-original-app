@@ -1,18 +1,18 @@
 <template>
-  <section>
+  <v-app>
     <HEADER />
-    <v-main>
+    <v-content>
       <v-container>
         <Nuxt />
       </v-container>
-    </v-main>
+    </v-content>
     <FOOTER />
-  </section>
+  </v-app>
 </template>
 
 <script>
-import HEADER from "~/components/Header.vue";
-import FOOTER from "~/components/Footer.vue";
+import HEADER from "~/components/HEADER.vue";
+import FOOTER from "~/components/FOOTER.vue";
 
 export default {
   components: {
